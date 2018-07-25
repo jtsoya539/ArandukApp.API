@@ -9,11 +9,14 @@ https://code.visualstudio.com/
 
 - Clonar o descargar el repositorio ArandukApp.API
 
+- En Archivos/mp3 copiar las carpetas con los archivos .mp3 proveídos por la SPL.
+
 - En el command prompt, ubicarse en la carpeta del proyecto (contiene el archivo con extensión .csproj) y ejecutar el siguiente comando:
 dotnet run
 
 - En el navegador u otra aplicación (como Postman) consultar la API desde la URL:
-http://localhost:5000/api/
+http://localhost:5000/api/categoria
+http://localhost:5000/api/texto
 
 ## Pasos para hospedar e implementar
 - TODO
