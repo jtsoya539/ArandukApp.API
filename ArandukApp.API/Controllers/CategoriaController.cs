@@ -28,7 +28,12 @@ namespace ArandukApp.API.Controllers
         [HttpGet]
         public ActionResult<List<Categoria>> GetAll()
         {
-            return _context.Categorias.ToList();
+            List<Categoria> categorias = _context.Categorias.ToList();
+            foreach (var categoria in categorias)
+            {
+                categoria.Textos = _context.Textos.Where(t => t.IdCategoria == categoria.Id).OrderBy(t => t.Id).ToList();
+            }
+            return categorias;
         }
 
         // GET api/categoria/5
@@ -40,6 +45,7 @@ namespace ArandukApp.API.Controllers
             {
                 return NotFound();
             }
+            item.Textos = _context.Textos.Where(t => t.IdCategoria == item.Id).OrderBy(t => t.Id).ToList();
             return item;
         }
 
