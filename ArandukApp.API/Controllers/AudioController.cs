@@ -7,27 +7,27 @@ namespace ArandukApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TextoController : ControllerBase
+    public class AudioController : ControllerBase
     {
         private readonly ArandukAppContext _context;
 
-        public TextoController(ArandukAppContext context)
+        public AudioController(ArandukAppContext context)
         {
             _context = context;
         }
 
-        // GET api/texto
+        // GET api/audio
         [HttpGet]
-        public ActionResult<List<Texto>> GetAll()
+        public ActionResult<List<Audio>> GetAll()
         {
-            return _context.Textos.ToList();
+            return _context.Audios.ToList();
         }
 
-        // GET api/texto/2
+        // GET api/audio/2
         [HttpGet("{id}", Name = "GetTexto")]
-        public ActionResult<Texto> GetById(int id)
+        public ActionResult<Audio> GetById(int id)
         {
-            var item = _context.Textos.Find(id);
+            var item = _context.Audios.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -35,21 +35,21 @@ namespace ArandukApp.API.Controllers
             return item;
         }
 
-        // POST api/texto
+        // POST api/audio
         [HttpPost]
-        public IActionResult Create(Texto item)
+        public IActionResult Create(Audio item)
         {
-            _context.Textos.Add(item);
+            _context.Audios.Add(item);
             _context.SaveChanges();
 
             return CreatedAtRoute("GetTexto", new { id = item.Id }, item);
         }
 
-        // PUT api/texto/2
+        // PUT api/audio/2
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Texto texto)
+        public IActionResult Update(int id, Audio texto)
         {
-            var item = _context.Textos.Find(id);
+            var item = _context.Audios.Find(id);
             if (item == null)
             {
                 return NotFound();
@@ -58,24 +58,24 @@ namespace ArandukApp.API.Controllers
             item.Titulo = texto.Titulo;
             item.Autor = texto.Autor;
             item.UrlAudio = texto.UrlAudio;
-            item.IdCategoria = texto.IdCategoria;
+            item.CategoriaId = texto.CategoriaId;
 
-            _context.Textos.Update(item);
+            _context.Audios.Update(item);
             _context.SaveChanges();
             return NoContent();
         }
 
-        // DELETE api/texto/2
+        // DELETE api/audio/2
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var item = _context.Textos.Find(id);
+            var item = _context.Audios.Find(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Textos.Remove(item);
+            _context.Audios.Remove(item);
             _context.SaveChanges();
             return NoContent();
         }

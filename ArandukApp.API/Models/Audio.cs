@@ -1,11 +1,11 @@
 namespace ArandukApp.API.Models
 {
-    public class Texto
+    public class Audio
     {
         public int Id { get; set; }
         public string Titulo { get; set; }
         public string Autor { get; set; }
         public string UrlAudio { get; set; }
-        public int IdCategoria { get; set; }
+        public int CategoriaId { get; set; }
     }
 }

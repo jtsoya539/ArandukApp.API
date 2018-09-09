@@ -22,7 +22,7 @@ namespace ArandukApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Textos",
+                name: "Audios",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -30,30 +30,29 @@ namespace ArandukApp.API.Migrations
                     Titulo = table.Column<string>(nullable: true),
                     Autor = table.Column<string>(nullable: true),
                     UrlAudio = table.Column<string>(nullable: true),
-                    IdCategoria = table.Column<int>(nullable: false),
-                    CategoriaId = table.Column<int>(nullable: true)
+                    CategoriaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Textos", x => x.Id);
+                    table.PrimaryKey("PK_Audios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Textos_Categorias_CategoriaId",
+                        name: "FK_Audios_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
                         principalTable: "Categorias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Textos_CategoriaId",
-                table: "Textos",
+                name: "IX_Audios_CategoriaId",
+                table: "Audios",
                 column: "CategoriaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Textos");
+                name: "Audios");
 
             migrationBuilder.DropTable(
                 name: "Categorias");

@@ -31,7 +31,7 @@ namespace ArandukApp.API.Controllers
             List<Categoria> categorias = _context.Categorias.ToList();
             foreach (var categoria in categorias)
             {
-                categoria.Textos = _context.Textos.Where(t => t.IdCategoria == categoria.Id).OrderBy(t => t.Id).ToList();
+                categoria.Audios = _context.Audios.Where(t => t.CategoriaId == categoria.Id).OrderBy(t => t.Id).ToList();
             }
             return categorias;
         }
@@ -45,7 +45,7 @@ namespace ArandukApp.API.Controllers
             {
                 return NotFound();
             }
-            item.Textos = _context.Textos.Where(t => t.IdCategoria == item.Id).OrderBy(t => t.Id).ToList();
+            item.Audios = _context.Audios.Where(t => t.CategoriaId == item.Id).OrderBy(t => t.Id).ToList();
             return item;
         }
 
@@ -70,7 +70,7 @@ namespace ArandukApp.API.Controllers
             categ.NombreCastellano = categoria.NombreCastellano;
             categ.NombreGuarani = categoria.NombreGuarani;
             categ.UrlImagen = categoria.UrlImagen;
-            categ.Textos = categoria.Textos;
+            categ.Audios = categoria.Audios;
 
             _context.Categorias.Update(categ);
             _context.SaveChanges();

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ArandukApp.API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ArandukApp.API.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ArandukApp.API
 {
@@ -30,7 +29,6 @@ namespace ArandukApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddDbContext<ArandukAppContext>(options =>
                 options.UseSqlite("Data Source=ArandukApp.db"));
         }
@@ -42,20 +40,15 @@ namespace ArandukApp.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseHsts();
-            }
 
             app.UseFileServer(new FileServerOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                        Path.Combine(Directory.GetCurrentDirectory(), @"..\Archivos")),
-                    RequestPath = "/archivos",
-                    EnableDirectoryBrowsing = true
+                       Path.Combine(Directory.GetCurrentDirectory(), "Archivos")),
+                RequestPath = "/archivos",
+                EnableDirectoryBrowsing = true
             });
 
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
