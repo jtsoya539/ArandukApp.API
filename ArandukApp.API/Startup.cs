@@ -49,6 +49,9 @@ namespace ArandukApp.API
                 EnableDirectoryBrowsing = true
             });
 
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
+
             app.UseMvc();
         }
     }

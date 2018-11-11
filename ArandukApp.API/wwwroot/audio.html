@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ArandukApp Admin</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <style>
+        input[type='submit'], button, [aria-label] {
+            cursor: pointer;
+        }
+
+        #spoiler {
+            display: none;
+        }
+
+        table {
+            font-family: Arial, sans-serif;
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #0066CC;
+            color: white;
+        }
+
+        td {
+            border: 1px solid;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ArandukApp Admin</h1>
+    <h2>Audios</h2>
+
+    <h3>Agregar</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+        <input type="number" id="add-Id" placeholder="ID">
+        <input type="text" id="add-Titulo" placeholder="Título">
+        <input type="text" id="add-Autor" placeholder="Autor">
+        <input type="text" id="add-UrlAudio" placeholder="URL Audio">
+        <input type="number" id="add-CategoriaId" placeholder="ID Categoría">
+        <input type="submit" value="Agregar">
+    </form>
+    <br>
+
+    <div id="spoiler">
+        <h3>Editar</h3>
+        <form class="my-form">
+            <input type="hidden" id="edit-Id" placeholder="ID">
+            <input type="text" id="edit-Titulo" placeholder="Título">
+            <input type="text" id="edit-Autor" placeholder="Autor">
+            <input type="text" id="edit-UrlAudio" placeholder="URL Audio">
+            <input type="number" id="edit-CategoriaId" placeholder="ID Categoría">
+            <input type="submit" value="Editar">
+            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+        </form>
+        <br>
+    </div>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>URL Audio</th>
+            <th>ID Categoría</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tbody id="todos"></tbody>
+    </table>
+
+    <p id="counter"></p>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="audio.js"></script>
+</body>
+
+</html>
