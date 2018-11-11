@@ -3,6 +3,8 @@ using System.Linq;
 using ArandukApp.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace ArandukApp.API.Controllers
 {
@@ -30,6 +32,33 @@ namespace ArandukApp.API.Controllers
             byte[] cadena = System.IO.File.ReadAllBytes(Path.Combine(Directory.GetCurrentDirectory(), ruta));
             return cadena;
         }
+
+        // PUT api/audiobyte/2
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateById(int id, IFormFile file)
+        {
+            long size = file.Length; // files.Sum(f => f.Length);
+
+            // full path to file in temp location
+            var filePath = Path.GetTempFileName();
+            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Archivos");
+
+
+            if (file.Length > 0)
+            {
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(new { count = size, filePath });
+        }
+
 
         private string FirstLetterToUpper(string str)
         {

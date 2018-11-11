@@ -17,6 +17,10 @@
             display: none;
         }
 
+        #upload {
+            display: none;
+        }
+
         table {
             font-family: Arial, sans-serif;
             border: 1px solid;
@@ -64,6 +68,17 @@
         <br>
     </div>
 
+    <div id="upload">
+        <h3>Subir Archivo</h3>
+        <form id="upload-form">
+            <input type="hidden" id="upload-Id" name="id">
+            <input type="file" id="upload-Archivo" name="file">
+            <input type="submit" value="Subir">
+            <a onclick="closeUpload()" aria-label="Close">&#10006;</a>
+        </form>
+        <br>
+    </div>
+
     <table>
         <tr>
             <th>ID</th>
@@ -71,6 +86,7 @@
             <th>Autor</th>
             <th>URL Audio</th>
             <th>ID Categoría</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
