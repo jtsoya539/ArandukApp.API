@@ -38,6 +38,13 @@ function getData() {
                     .append($("<td></td>").text(item.urlImagen))
                     .append(
                         $("<td></td>").append(
+                            $("<button>Subir Archivo</button>").on("click", function () {
+                                uploadFile(item.id);
+                            })
+                        )
+                    )
+                    .append(
+                        $("<td></td>").append(
                             $("<button>Editar</button>").on("click", function () {
                                 editItem(item.id);
                             })
@@ -105,10 +112,10 @@ function editItem(id) {
             $("#edit-UrlImagen").val(item.urlImagen);
         }
     });
-    $("#spoiler").css({ display: "block" });
+    $("#edit").css({ display: "block" });
 }
 
-$(".my-form").on("submit", function () {
+$("#edit-form").on("submit", function () {
     const item = {
         id: $("#edit-Id").val(),
         nombreCastellano: $("#edit-NombreCastellano").val(),
@@ -127,10 +134,45 @@ $(".my-form").on("submit", function () {
         }
     });
 
-    closeInput();
+    closeEdit();
     return false;
 });
 
-function closeInput() {
-    $("#spoiler").css({ display: "none" });
+function closeEdit() {
+    $("#edit").css({ display: "none" });
+}
+
+function uploadFile(id) {
+    $.each(todos, function (key, item) {
+        if (item.id === id) {
+            $("#upload-Id").val(item.id);
+            $("#upload-Archivo").val("");
+        }
+    });
+    $("#upload").css({ display: "block" });
+}
+
+$("#upload-form").on("submit", function () {
+    var formData = new FormData($("#upload-form")[0]);
+
+    $.ajax({
+        url: "api/audiobyte" + "/" + $("#upload-Id").val(),
+        type: "PUT",
+        accepts: "application/json",
+        // contentType: "multipart/form-data",
+        contentType: false, // ??
+        processData: false, // ??
+        data: formData,
+        success: function (result) {
+            alert("Archivo subido");
+            getData();
+        }
+    });
+
+    closeUpload();
+    return false;
+});
+
+function closeUpload() {
+    $("#upload").css({ display: "none" });
 }

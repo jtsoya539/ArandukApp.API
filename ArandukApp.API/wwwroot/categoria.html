@@ -13,7 +13,7 @@
             cursor: pointer;
         }
 
-        #spoiler {
+        #edit, #upload {
             display: none;
         }
 
@@ -49,17 +49,64 @@
     </form>
     <br>
 
-    <div id="spoiler">
-        <h3>Editar</h3>
-        <form class="my-form">
-            <input type="hidden" id="edit-Id" placeholder="ID">
-            <input type="text" id="edit-NombreCastellano" placeholder="Nombre en Castellano">
-            <input type="text" id="edit-NombreGuarani" placeholder="Nombre en Guaraní">
-            <input type="text" id="edit-UrlImagen" placeholder="URL Imagen">
-            <input type="submit" value="Editar">
-            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
-        </form>
-        <br>
+    <!-- Modal edit -->
+    <div class="modal" tabindex="-1" role="dialog" id="edit">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Editar</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeEdit()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="edit-form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="edit-Id" placeholder="ID">
+                        <div class="form-group">
+                            <label for="edit-NombreCastellano">Nombre en Castellano</label>
+                            <input type="text" class="form-control" id="edit-NombreCastellano" placeholder="Nombre en Castellano">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-NombreGuarani">Nombre en Guaraní</label>
+                            <input type="text" class="form-control" id="edit-NombreGuarani" placeholder="Nombre en Guaraní">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-UrlImagen">URL Imagen</label>
+                            <input type="text" class="form-control" id="edit-UrlImagen" placeholder="URL Imagen">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Editar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal upload -->
+    <div class="modal" tabindex="-1" role="dialog" id="upload">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Subir Archivo</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeUpload()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="upload-form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" id="upload-Id" name="id">
+                        <div class="form-group">
+                            <label for="upload-Archivo">Archivo de imagen</label>
+                            <input type="file" class="form-control-file" id="upload-Archivo" name="file">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Subir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <table>
@@ -68,6 +115,7 @@
             <th>Nombre en Castellano</th>
             <th>Nombre en Guaraní</th>
             <th>URL Imagen</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
