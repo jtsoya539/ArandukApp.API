@@ -13,24 +13,8 @@
             cursor: pointer;
         }
 
-        #edit, #upload {
+        #add, #edit, #upload {
             display: none;
-        }
-
-        table {
-            font-family: Arial, sans-serif;
-            border: 1px solid;
-            border-collapse: collapse;
-        }
-
-        th {
-            background-color: #0066CC;
-            color: white;
-        }
-
-        td {
-            border: 1px solid;
-            padding: 5px;
         }
     </style>
 </head>
@@ -39,15 +23,46 @@
     <h1>ArandukApp Admin</h1>
     <h2>Categorías</h2>
 
-    <h3>Agregar</h3>
-    <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-        <input type="number" id="add-Id" placeholder="ID">
-        <input type="text" id="add-NombreCastellano" placeholder="Nombre en Castellano">
-        <input type="text" id="add-NombreGuarani" placeholder="Nombre en Guaraní">
-        <input type="text" id="add-UrlImagen" placeholder="URL Imagen">
-        <input type="submit" value="Agregar">
-    </form>
+    <button type="button" class="btn btn-primary" onclick="openAdd()">Agregar</button>
+
     <br>
+
+    <!-- Modal add -->
+    <div class="modal" tabindex="-1" role="dialog" id="add">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Agregar</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAdd()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="add-form" action="javascript:void(0);" method="POST" onsubmit="addItem()">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="add-Id">ID</label>
+                            <input type="number" class="form-control" id="add-Id" placeholder="ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-NombreCastellano">Nombre en Castellano</label>
+                            <input type="text" class="form-control" id="add-NombreCastellano" placeholder="Nombre en Castellano">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-NombreGuarani">Nombre en Guaraní</label>
+                            <input type="text" class="form-control" id="add-NombreGuarani" placeholder="Nombre en Guaraní">
+                        </div>
+                        <div class="form-group">
+                            <label for="add-UrlImagen">URL Imagen</label>
+                            <input type="text" class="form-control" id="add-UrlImagen" placeholder="URL Imagen">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Agregar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal edit -->
     <div class="modal" tabindex="-1" role="dialog" id="edit">
@@ -109,16 +124,18 @@
         </div>
     </div>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Nombre en Castellano</th>
-            <th>Nombre en Guaraní</th>
-            <th>URL Imagen</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre en Castellano</th>
+                <th>Nombre en Guaraní</th>
+                <th>URL Imagen</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
         <tbody id="todos"></tbody>
     </table>
 

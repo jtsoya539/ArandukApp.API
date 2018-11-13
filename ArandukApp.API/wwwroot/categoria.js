@@ -1,6 +1,10 @@
 const uri = "api/categoria";
 let todos = null;
 
+$(document).ready(function () {
+    getData();
+});
+
 function getCount(data) {
     const el = $("#counter");
     let name = "Categoría";
@@ -13,10 +17,6 @@ function getCount(data) {
         el.text("Ninguna " + name);
     }
 }
-
-$(document).ready(function () {
-    getData();
-});
 
 function getData() {
     $.ajax({
@@ -38,21 +38,21 @@ function getData() {
                     .append($("<td></td>").text(item.urlImagen))
                     .append(
                         $("<td></td>").append(
-                            $("<button>Subir Archivo</button>").on("click", function () {
+                            $("<button type=\"button\" class=\"btn btn-secondary\">Subir Archivo</button>").on("click", function () {
                                 uploadFile(item.id);
                             })
                         )
                     )
                     .append(
                         $("<td></td>").append(
-                            $("<button>Editar</button>").on("click", function () {
+                            $("<button type=\"button\" class=\"btn btn-secondary\">Editar</button>").on("click", function () {
                                 editItem(item.id);
                             })
                         )
                     )
                     .append(
                         $("<td></td>").append(
-                            $("<button>Eliminar</button>").on("click", function () {
+                            $("<button type=\"button\" class=\"btn btn-danger\">Eliminar</button>").on("click", function () {
                                 deleteItem(item.id);
                             })
                         )
@@ -91,6 +91,16 @@ function addItem() {
             $("#add-UrlImagen").val("");
         }
     });
+
+    closeAdd();
+}
+
+function openAdd() {
+    $("#add").css({ display: "block" });
+}
+
+function closeAdd() {
+    $("#add").css({ display: "none" });
 }
 
 function deleteItem(id) {
