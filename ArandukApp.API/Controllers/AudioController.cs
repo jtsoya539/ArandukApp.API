@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArandukApp.API.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArandukApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("arandukapp/api/[controller]")]
     [ApiController]
     public class AudioController : ControllerBase
     {
@@ -16,15 +17,17 @@ namespace ArandukApp.API.Controllers
             _context = context;
         }
 
-        // GET api/audio
+        // GET arandukapp/api/audio
         [HttpGet]
+        [EnableCors]
         public ActionResult<List<Audio>> GetAll()
         {
             return _context.Audios.ToList();
         }
 
-        // GET api/audio/2
-        [HttpGet("{id}", Name = "GetTexto")]
+        // GET arandukapp/api/audio/2
+        [HttpGet("{id}", Name = "GetAudio")]
+        [EnableCors]
         public ActionResult<Audio> GetById(int id)
         {
             var item = _context.Audios.Find(id);
@@ -35,18 +38,20 @@ namespace ArandukApp.API.Controllers
             return item;
         }
 
-        // POST api/audio
+        // POST arandukapp/api/audio
         [HttpPost]
+        [DisableCors]
         public IActionResult Create(Audio item)
         {
             _context.Audios.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetTexto", new { id = item.Id }, item);
+            return CreatedAtRoute("GetAudio", new { id = item.Id }, item);
         }
 
-        // PUT api/audio/2
+        // PUT arandukapp/api/audio/2
         [HttpPut("{id}")]
+        [DisableCors]
         public IActionResult Update(int id, Audio texto)
         {
             var item = _context.Audios.Find(id);
@@ -65,8 +70,9 @@ namespace ArandukApp.API.Controllers
             return NoContent();
         }
 
-        // DELETE api/audio/2
+        // DELETE arandukapp/api/audio/2
         [HttpDelete("{id}")]
+        [DisableCors]
         public IActionResult Delete(int id)
         {
             var item = _context.Audios.Find(id);

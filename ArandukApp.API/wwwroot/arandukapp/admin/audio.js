@@ -1,5 +1,9 @@
-const uri = "api/audio";
+const uri = "/arandukapp/api/audio";
 let todos = null;
+
+$(document).ready(function () {
+    getData();
+});
 
 function getCount(data) {
     const el = $("#counter");
@@ -13,10 +17,6 @@ function getCount(data) {
         el.text("Ningún " + name);
     }
 }
-
-$(document).ready(function () {
-    getData();
-});
 
 function getData() {
     $.ajax({
@@ -39,21 +39,21 @@ function getData() {
                     .append($("<td></td>").text(item.categoriaId))
                     .append(
                         $("<td></td>").append(
-                            $("<button>Subir Archivo</button>").on("click", function () {
+                            $("<button type=\"button\" class=\"btn btn-secondary\">Subir Archivo</button>").on("click", function () {
                                 uploadFile(item.id);
                             })
                         )
                     )
                     .append(
                         $("<td></td>").append(
-                            $("<button>Editar</button>").on("click", function () {
+                            $("<button type=\"button\" class=\"btn btn-secondary\">Editar</button>").on("click", function () {
                                 editItem(item.id);
                             })
                         )
                     )
                     .append(
                         $("<td></td>").append(
-                            $("<button>Eliminar</button>").on("click", function () {
+                            $("<button type=\"button\" class=\"btn btn-danger\">Eliminar</button>").on("click", function () {
                                 deleteItem(item.id);
                             })
                         )
@@ -94,6 +94,16 @@ function addItem() {
             $("#add-CategoriaId").val("");
         }
     });
+
+    closeAdd();
+}
+
+function openAdd() {
+    $("#add").css({ display: "block" });
+}
+
+function closeAdd() {
+    $("#add").css({ display: "none" });
 }
 
 function deleteItem(id) {
@@ -116,10 +126,10 @@ function editItem(id) {
             $("#edit-CategoriaId").val(item.categoriaId);
         }
     });
-    $("#spoiler").css({ display: "block" });
+    $("#edit").css({ display: "block" });
 }
 
-$(".my-form").on("submit", function () {
+$("#edit-form").on("submit", function () {
     const item = {
         id: $("#edit-Id").val(),
         titulo: $("#edit-Titulo").val(),
@@ -139,12 +149,12 @@ $(".my-form").on("submit", function () {
         }
     });
 
-    closeInput();
+    closeEdit();
     return false;
 });
 
-function closeInput() {
-    $("#spoiler").css({ display: "none" });
+function closeEdit() {
+    $("#edit").css({ display: "none" });
 }
 
 function uploadFile(id) {
@@ -161,13 +171,16 @@ $("#upload-form").on("submit", function () {
     var formData = new FormData($("#upload-form")[0]);
 
     $.ajax({
-        url: "api/audiobyte" + "/" + $("#upload-Id").val(),
-        type: "PUT",
+        url: "/arandukapp/api/archivo?model=audio&id=" + $("#upload-Id").val(),
+        type: "POST",
         accepts: "application/json",
         // contentType: "multipart/form-data",
         contentType: false, // ??
         processData: false, // ??
         data: formData,
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error al subir archivo!");
+        },
         success: function (result) {
             alert("Archivo subido");
             getData();

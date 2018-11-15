@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArandukApp.API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArandukApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("arandukapp/api/[controller]")]
     [ApiController]
     public class CategoriaController : ControllerBase
     {
@@ -14,18 +16,11 @@ namespace ArandukApp.API.Controllers
         public CategoriaController(ArandukAppContext context)
         {
             _context = context;
-
-            // Solo para pruebas
-            if (_context.Categorias.Count() == 0)
-            {
-                _context.Categorias.Add(new Categoria { NombreCastellano = "CATEGORIA 1" });
-                _context.Categorias.Add(new Categoria { NombreCastellano = "CATEGORIA 2" });
-                _context.SaveChanges();
-            }
         }
 
-        // GET api/categoria
+        // GET arandukapp/api/categoria
         [HttpGet]
+        [EnableCors]
         public ActionResult<List<Categoria>> GetAll()
         {
             List<Categoria> categorias = _context.Categorias.ToList();
@@ -36,8 +31,9 @@ namespace ArandukApp.API.Controllers
             return categorias;
         }
 
-        // GET api/categoria/5
+        // GET arandukapp/api/categoria/5
         [HttpGet("{id}", Name = "GetCategoria")]
+        [EnableCors]
         public ActionResult<Categoria> GetById(int id)
         {
             var item = _context.Categorias.Find(id);
@@ -49,7 +45,10 @@ namespace ArandukApp.API.Controllers
             return item;
         }
 
+        // POST arandukapp/api/categoria
         [HttpPost]
+        [DisableCors]
+        //[Authorize]
         public IActionResult Create(Categoria item)
         {
             _context.Categorias.Add(item);
@@ -58,7 +57,10 @@ namespace ArandukApp.API.Controllers
             return CreatedAtRoute("GetCategoria", new { id = item.Id }, item);
         }
 
+        // PUT arandukapp/api/categoria/5
         [HttpPut("{id}")]
+        [DisableCors]
+        //[Authorize]
         public IActionResult Update(int id, Categoria categoria)
         {
             var categ = _context.Categorias.Find(id);
@@ -77,7 +79,10 @@ namespace ArandukApp.API.Controllers
             return NoContent();
         }
 
+        // DELETE arandukapp/api/categoria/5
         [HttpDelete("{id}")]
+        [DisableCors]
+        //[Authorize]
         public IActionResult Delete(int id)
         {
             var categ = _context.Categorias.Find(id);

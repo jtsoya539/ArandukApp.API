@@ -1,4 +1,4 @@
-const uri = "api/categoria";
+const uri = "/arandukapp/api/categoria";
 let todos = null;
 
 $(document).ready(function () {
@@ -166,13 +166,16 @@ $("#upload-form").on("submit", function () {
     var formData = new FormData($("#upload-form")[0]);
 
     $.ajax({
-        url: "api/audiobyte" + "/" + $("#upload-Id").val(),
-        type: "PUT",
+        url: "/arandukapp/api/archivo?model=categoria&id=" + $("#upload-Id").val(),
+        type: "POST",
         accepts: "application/json",
         // contentType: "multipart/form-data",
         contentType: false, // ??
         processData: false, // ??
         data: formData,
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Error al subir archivo!");
+        },
         success: function (result) {
             alert("Archivo subido");
             getData();

@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace ArandukApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("arandukapp/api/[controller]")]
     [ApiController]
     public class AudioByteController : ControllerBase
     {
@@ -19,8 +20,9 @@ namespace ArandukApp.API.Controllers
             _context = context;
         }
 
-        // GET api/audiobyte/2
-        [HttpGet("{id}", Name = "GetAudioByte")]
+        // GET arandukapp/api/audiobyte/2
+        [HttpGet("{id}")]
+        [EnableCors]
         public ActionResult<byte[]> GetById(int id)
         {
             var item = _context.Audios.Find(id);
@@ -33,33 +35,6 @@ namespace ArandukApp.API.Controllers
             return cadena;
         }
 
-        // PUT api/audiobyte/2
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateById(int id, IFormFile file)
-        {
-            long size = file.Length; // files.Sum(f => f.Length);
-
-            // full path to file in temp location
-            var filePath = Path.GetTempFileName();
-            //var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Archivos");
-
-
-            if (file.Length > 0)
-            {
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-            }
-
-
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = size, filePath });
-        }
-
-
         private string FirstLetterToUpper(string str)
         {
             if (str == null)
@@ -70,6 +45,5 @@ namespace ArandukApp.API.Controllers
 
             return str.ToUpper();
         }
-
     }
 }

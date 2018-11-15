@@ -1,1 +1,0 @@
-Aquí copiar las carpetas con los archivos .mp3 proveídos por la SPL.

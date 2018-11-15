@@ -20,12 +20,34 @@
 </head>
 
 <body>
-    <h1>ArandukApp Admin</h1>
-    <h2>Categorías</h2>
 
-    <button type="button" class="btn btn-primary" onclick="openAdd()">Agregar</button>
+    <div class="container">
+        <div class="my-3 p-3 rounded shadow-sm">
+            <h1>ArandukApp Admin</h1>
+            <h2>Categorías</h2>
+        </div>
 
-    <br>
+        <div class="my-3 p-3 rounded shadow-sm">
+            <button type="button" class="btn btn-primary" onclick="openAdd()">Agregar</button>
+        </div>
+
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre en Castellano</th>
+                    <th>Nombre en Guaraní</th>
+                    <th>URL Imagen</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="todos"></tbody>
+        </table>
+
+        <p id="counter"></p>
+    </div>
 
     <!-- Modal add -->
     <div class="modal" tabindex="-1" role="dialog" id="add">
@@ -123,23 +145,6 @@
             </div>
         </div>
     </div>
-
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nombre en Castellano</th>
-                <th>Nombre en Guaraní</th>
-                <th>URL Imagen</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="todos"></tbody>
-    </table>
-
-    <p id="counter"></p>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>

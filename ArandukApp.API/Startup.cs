@@ -13,6 +13,9 @@ using ArandukApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Http;
 
 namespace ArandukApp.API
 {
@@ -28,9 +31,23 @@ namespace ArandukApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "ArandukApp";
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            }).AddCookie("ArandukApp").AddGoogle(options =>
+            {
+                options.ClientId = "601559891225-cu2vb8rkcjvqe5bafv5v5su83ki4dtpl.apps.googleusercontent.com";
+                options.ClientSecret = "OyNVqojrX9E1f-Zsh6-_RD9s";
+                options.CallbackPath = new PathString("/signin-google");
+                options.SignInScheme = "ArandukApp";
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<ArandukAppContext>(options =>
                 options.UseSqlite("Data Source=ArandukApp.db"));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +61,16 @@ namespace ArandukApp.API
             app.UseFileServer(new FileServerOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                       Path.Combine(Directory.GetCurrentDirectory(), "Archivos")),
-                RequestPath = "/archivos",
+                       Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "arandukapp", "files")),
+                RequestPath = "/arandukapp/files",
                 EnableDirectoryBrowsing = true
             });
 
-            app.UseStaticFiles();
-            app.UseDefaultFiles();
+            // app.UseDefaultFiles();
+            // app.UseStaticFiles();
+            app.UseFileServer();
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
