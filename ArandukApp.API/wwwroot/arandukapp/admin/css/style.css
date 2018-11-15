@@ -1,0 +1,35 @@
+body {
+    overflow-x: hidden;
+}
+
+.bg-header {
+    background:#dbdbdb;
+}
+
+.bg-header .logo-header {
+    max-width: 200px;
+}
+
+input[type='submit'], button, [aria-label] {
+    cursor: pointer;
+}
+
+#add, #edit, #upload {
+    display: none;
+}
+
+.bg-nav-header {
+    width: 100%;
+    background: #dbdbdb;
+}
+
+.btn-header {
+    padding: 20px 0px;
+}
+
+.title-page-row {
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #dbdbdb;
+    margin-top: 0px;
+}

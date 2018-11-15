@@ -19,6 +19,7 @@ namespace ArandukApp.API
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://0.0.0.0:5003")
                 .UseStartup<Startup>();
     }
 }
