@@ -36,29 +36,23 @@ function getData() {
                     .append($("<td></td>").text(item.nombreCastellano))
                     .append($("<td></td>").text(item.nombreGuarani))
                     .append($("<td></td>").text(item.urlImagen))
-                     .append(
+                    .append(
                         $("<td></td>").append(
-                            $(`<button type="button" class="btn btn-secondary">
-                                <i class="fas fa-file-upload"></i>
-                                </button>`).on("click", function () {
+                            $(`<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-file-upload"></i></button>`).on("click", function () {
                                 uploadFile(item.id);
                             })
                         )
                     )
                     .append(
                         $("<td></td>").append(
-                            $(`<button type="button" class="btn btn-success">
-                                    <i class="fas fa-edit"></i>
-                                </button>`).on("click", function () {
+                            $(`<button type="button" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button>`).on("click", function () {
                                 editItem(item.id);
                             })
                         )
                     )
                     .append(
                         $("<td></td>").append(
-                            $(`<button type="button" class="btn btn-danger">
-                                <i class="fas fa-trash-alt"></i>
-                                </button>`).on("click", function () {
+                            $(`<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>`).on("click", function () {
                                 deleteItem(item.id);
                             })
                         )
@@ -110,13 +104,15 @@ function closeAdd() {
 }
 
 function deleteItem(id) {
-    $.ajax({
-        url: uri + "/" + id,
-        type: "DELETE",
-        success: function (result) {
-            getData();
-        }
-    });
+    if (confirm('¿Desea eliminar el elemento?')) {
+        $.ajax({
+            url: uri + "/" + id,
+            type: "DELETE",
+            success: function (result) {
+                getData();
+            }
+        });
+    }
 }
 
 function editItem(id) {

@@ -10,14 +10,6 @@ body {
     max-width: 200px;
 }
 
-input[type='submit'], button, [aria-label] {
-    cursor: pointer;
-}
-
-#add, #edit, #upload {
-    display: none;
-}
-
 .bg-nav-header {
     width: 100%;
     background: #dbdbdb;
@@ -32,4 +24,8 @@ input[type='submit'], button, [aria-label] {
     font-weight: bold;
     text-shadow: 1px 1px 1px #dbdbdb;
     margin-top: 0px;
+}
+
+#add, #edit, #upload {
+    display: none;
 }
