@@ -99,6 +99,27 @@ function addItem() {
 }
 
 function openAdd() {
+    $.ajax({
+        type: "GET",
+        url: "/arandukapp/api/categoria",
+        cache: false,
+        success: function (data) {
+            const select = $("#add-CategoriaId");
+
+            $(select).empty();
+
+            $.each(data, function (key, item) {
+                const option = $("<option></option>")
+                    .attr("value", item.id)
+                    .append(item.nombreCastellano);
+
+                option.appendTo(select);
+            });
+
+            // select = data;
+        }
+    });
+
     $("#add").css({ display: "block" });
 }
 
@@ -119,6 +140,27 @@ function deleteItem(id) {
 }
 
 function editItem(id) {
+    $.ajax({
+        type: "GET",
+        url: "/arandukapp/api/categoria",
+        cache: false,
+        success: function (data) {
+            const select = $("#edit-CategoriaId");
+
+            $(select).empty();
+
+            $.each(data, function (key, item) {
+                const option = $("<option></option>")
+                    .attr("value", item.id)
+                    .append(item.nombreCastellano);
+
+                option.appendTo(select);
+            });
+
+            // select = data;
+        }
+    });
+
     $.each(todos, function (key, item) {
         if (item.id === id) {
             $("#edit-Id").val(item.id);

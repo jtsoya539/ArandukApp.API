@@ -3,7 +3,7 @@ body {
 }
 
 .bg-header {
-    background:#dbdbdb;
+    background: #e4e4e4;
 }
 
 .bg-header .logo-header {
@@ -12,7 +12,7 @@ body {
 
 .bg-nav-header {
     width: 100%;
-    background: #dbdbdb;
+    background: #e4e4e4;
 }
 
 .btn-header {
@@ -22,7 +22,7 @@ body {
 .title-page-row {
     font-size: 40px;
     font-weight: bold;
-    text-shadow: 1px 1px 1px #dbdbdb;
+    text-shadow: 1px 1px 1px #e4e4e4;
     margin-top: 0px;
 }
 
