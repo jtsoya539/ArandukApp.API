@@ -1,9 +1,33 @@
 const uri = "/arandukapp/api/audio";
 let todos = null;
 
+var categories = [];
+
+
+// Preloading de funciones
+(function(){
+	getCategories();
+}())
+
+
 $(document).ready(function () {
-    getData();
+	getData();
 });
+
+
+// Listado de categorias
+function getCategories(){
+    $.ajax({
+        type: "GET",
+        url: "/arandukapp/api/categoria",
+        cache: false,
+        success: function (data) {
+            categories = data;
+        }
+    });
+	
+	setOptionsCategories();
+}
 
 function getCount(data) {
     const el = $("#counter");
@@ -27,7 +51,7 @@ function getData() {
             const tBody = $("#todos");
 
             $(tBody).empty();
-
+			
             getCount(data.length);
 
             $.each(data, function (key, item) {
@@ -35,29 +59,39 @@ function getData() {
                     .append($("<td></td>").text(item.id))
                     .append($("<td></td>").text(item.titulo))
                     .append($("<td></td>").text(item.autor))
-                    .append($("<td></td>").text(item.urlAudio))
-                    .append($("<td></td>").text(item.categoriaId))
-                    .append(
-                        $("<td></td>").append(
-                            $(`<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-file-upload"></i></button>`).on("click", function () {
-                                uploadFile(item.id);
-                            })
-                        )
-                    )
-                    .append(
-                        $("<td></td>").append(
-                            $(`<button type="button" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button>`).on("click", function () {
-                                editItem(item.id);
-                            })
-                        )
-                    )
-                    .append(
-                        $("<td></td>").append(
-                            $(`<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>`).on("click", function () {
-                                deleteItem(item.id);
-                            })
-                        )
-                    );
+                    .append($("<td></td>").text(item.urlAudio));
+				
+				
+				categories.forEach((element, index) => {
+					if (element.id == item.categoriaId){
+						console.log('test data');
+						tr.append($("<td></td>").text(element.nombreCastellano));
+						return;
+					}
+				});
+			
+				
+				tr.append(
+					$("<td></td>").append(
+						$(`<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-file-upload"></i></button>`).on("click", function () {
+							uploadFile(item.id);
+						})
+					)
+				)
+				.append(
+					$("<td></td>").append(
+						$(`<button type="button" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button>`).on("click", function () {
+							editItem(item.id);
+						})
+					)
+				)
+				.append(
+					$("<td></td>").append(
+						$(`<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>`).on("click", function () {
+							deleteItem(item.id);
+						})
+					)
+				);
 
                 tr.appendTo(tBody);
             });
@@ -99,28 +133,23 @@ function addItem() {
 }
 
 function openAdd() {
-    $.ajax({
-        type: "GET",
-        url: "/arandukapp/api/categoria",
-        cache: false,
-        success: function (data) {
-            const select = $("#add-CategoriaId");
+    setOptionsCategories();
+	$("#add").css({ display: "block" });
+}
 
-            $(select).empty();
-
-            $.each(data, function (key, item) {
-                const option = $("<option></option>")
-                    .attr("value", item.id)
-                    .append(item.nombreCastellano);
-
-                option.appendTo(select);
-            });
-
-            // select = data;
-        }
-    });
-
-    $("#add").css({ display: "block" });
+// Actualiza el listado de categorias
+function setOptionsCategories(){
+	let select = $(".audio-categoriaId");
+	$(select).empty();
+	
+	categories.forEach((element, index) => {
+		console.log(element.nombreCastellano);
+		let option = $("<option></option>")
+            .attr("value", element.id)
+            .append(element.nombreCastellano);
+		
+		option.appendTo(select);
+	});
 }
 
 function closeAdd() {
@@ -128,7 +157,7 @@ function closeAdd() {
 }
 
 function deleteItem(id) {
-    if (confirm('¿Desea eliminar el elemento?')) {
+    if (confirm('¿Desea eliminar el audio?')) {
         $.ajax({
             url: uri + "/" + id,
             type: "DELETE",
@@ -140,27 +169,8 @@ function deleteItem(id) {
 }
 
 function editItem(id) {
-    $.ajax({
-        type: "GET",
-        url: "/arandukapp/api/categoria",
-        cache: false,
-        success: function (data) {
-            const select = $("#edit-CategoriaId");
-
-            $(select).empty();
-
-            $.each(data, function (key, item) {
-                const option = $("<option></option>")
-                    .attr("value", item.id)
-                    .append(item.nombreCastellano);
-
-                option.appendTo(select);
-            });
-
-            // select = data;
-        }
-    });
-
+	setOptionsCategories();
+	
     $.each(todos, function (key, item) {
         if (item.id === id) {
             $("#edit-Id").val(item.id);
@@ -171,7 +181,9 @@ function editItem(id) {
         }
     });
     $("#edit").css({ display: "block" });
+
 }
+
 
 $("#edit-form").on("submit", function () {
     const item = {
