@@ -104,7 +104,7 @@ function closeAdd() {
 }
 
 function deleteItem(id) {
-    if (confirm('¿Desea eliminar el elemento?')) {
+    if (confirm('¿Desea eliminar la categoria?')) {
         $.ajax({
             url: uri + "/" + id,
             type: "DELETE",
