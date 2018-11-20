@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ArandukApp.API.Controllers
 {
@@ -14,10 +15,12 @@ namespace ArandukApp.API.Controllers
     public class AudioByteController : ControllerBase
     {
         private readonly ArandukAppContext _context;
+        private IHostingEnvironment _env;
 
-        public AudioByteController(ArandukAppContext context)
+        public AudioByteController(ArandukAppContext context, IHostingEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         // GET arandukapp/api/audiobyte/2
@@ -30,20 +33,9 @@ namespace ArandukApp.API.Controllers
             {
                 return NotFound();
             }
-            string ruta = FirstLetterToUpper(item.UrlAudio.Substring(23));
-            byte[] cadena = System.IO.File.ReadAllBytes(Path.Combine(Directory.GetCurrentDirectory(), ruta));
+            var filePath = Path.Combine(_env.WebRootPath, "arandukapp", item.UrlAudio);
+            byte[] cadena = System.IO.File.ReadAllBytes(filePath);
             return cadena;
-        }
-
-        private string FirstLetterToUpper(string str)
-        {
-            if (str == null)
-                return null;
-
-            if (str.Length > 1)
-                return char.ToUpper(str[0]) + str.Substring(1);
-
-            return str.ToUpper();
         }
     }
 }
