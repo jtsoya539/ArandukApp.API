@@ -1,0 +1,59 @@
+html, body {
+  height: 100%;
+  background-color: #d1d5df;
+}
+
+body {
+    display: -ms-flexbox;
+    display: flex;
+    overflow-x: hidden;
+}
+
+p {
+    color: #4d4d4d;
+    text-shadow: 1px 1px 1px #000000;
+}
+
+main {
+    padding: 20px 0px;
+}
+
+.bg-header {
+    background: #e4e4e4;
+}
+
+.bg-header .logo-header {
+    max-width: 200px;
+}
+
+.bg-nav-header {
+    width: 100%;
+    background: #e4e4e4;
+}
+
+.btn-header {
+    padding: 20px 0px;
+}
+
+.title-page-row {
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #e4e4e4;
+    margin-top: 0px;
+}
+
+#add, #edit, #upload {
+    display: none;
+}
+
+.logo-arandukapp {
+    max-width: 500px;
+}
+
+.logo-play-store {
+    max-width: 300px;
+}
+
+.logo-footer {
+    max-width: 400px;
+}
